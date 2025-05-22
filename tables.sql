@@ -38,14 +38,14 @@ CREATE TABLE inventories(
 
 );
 
-alter table inventories add foreign key (article_id) references articles(id);
+-- alter table inventories add foreign key (article_id) references articles(id);
 
-alter table inventories add foreign key (warehouse_id) references warehouses(id);
+-- alter table inventories add foreign key (warehouse_id) references warehouses(id);
 
 
-CREATE UNIQUE INDEX indx_category_code ON categories(code);
+-- CREATE UNIQUE INDEX indx_category_code ON categories(code);
 
-CREATE VIEW v_categories_articles AS 
-SELECT C.code category_code, C.name category_name, A.code product_code, A.name product_name 
-	FROM categories C INNER JOIN
-    articles A ON C.id = A.category_id;
+-- CREATE VIEW v_categories_articles AS 
+-- SELECT C.code category_code, C.name category_name, A.code product_code, A.name product_name 
+-- 	FROM categories C INNER JOIN
+--     articles A ON C.id = A.category_id;
