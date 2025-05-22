@@ -1,3 +1,5 @@
+--se crea categories
+
 CREATE TABLE categories(
     id INT PRIMARY KEY AUTO_INCREMENT,
     code VARCHAR(4) NOT NULL,
@@ -5,6 +7,8 @@ CREATE TABLE categories(
     description VARCHAR(250),
     active BOOLEAN DEFAULT TRUE
 );
+
+--se crea warehouses
 
 CREATE TABLE warehouses(
     id INT PRIMARY KEY AUTO_INCREMENT,
@@ -14,6 +18,7 @@ CREATE TABLE warehouses(
     active BOOLEAN DEFAULT TRUE
 );
 
+--se crea articles y se relaciona con categories
 CREATE TABLE articles(
     id INT PRIMARY KEY AUTO_INCREMENT,
     code VARCHAR(4) NOT NULL,
@@ -23,6 +28,8 @@ CREATE TABLE articles(
 	active BOOLEAN DEFAULT TRUE,
     FOREIGN KEY (category_id) REFERENCES categories(id)
     );
+
+--se crea inventories y se relaciona con articles y warehouses
 
 CREATE TABLE inventories(
     id INT PRIMARY KEY AUTO_INCREMENT,
@@ -38,14 +45,17 @@ CREATE TABLE inventories(
 
 );
 
--- alter table inventories add foreign key (article_id) references articles(id);
+--se crea provider y se relaciona con categories
 
--- alter table inventories add foreign key (warehouse_id) references warehouses(id);
-
-
--- CREATE UNIQUE INDEX indx_category_code ON categories(code);
-
--- CREATE VIEW v_categories_articles AS 
--- SELECT C.code category_code, C.name category_name, A.code product_code, A.name product_name 
--- 	FROM categories C INNER JOIN
---     articles A ON C.id = A.category_id;
+CREATE TABLE provider(
+    id INT PRIMARY  KEY AUTO_INCREMENT,
+    code VARCHAR(4) NOT NULL UNIQUE,
+    name VARCHAR(100) NOT NULL,
+    email VARCHAR(40) NOT NULL UNIQUE,
+    category_id INT,
+    registered_date DATETIME DEFAULT CURRENT_TIMESTAMP,
+    -- es para vefiricar que el score sea de 0 a 5
+    score INT NOT NULL CHECK(score>= 0 AND score <= 5),
+    active BOOLEAN,
+    FOREIGN KEY(category_id) REFERENCES categories(id)
+);
